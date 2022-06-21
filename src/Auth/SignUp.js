@@ -24,19 +24,19 @@ export const SignUp = ({ history, toggleLoading }) => {
 //   const { enqueueSnackbar } = useSnackbar();
 
   const initialValues = {
-    firstName: '',
-    lastName: '',
-    email: '',
+    phNo: '',
+    // email: '',
+    role:'',
     password: '',
     passwordConfirmation: '',
   };
 
   const validationSchema = Yup.object({
-    firstName: Yup.string().required('First name is required'),
-    lastName: Yup.string().required('Last name is required'),
-    email: Yup.string()
-      .email('Invalid e-mail adddress')
-      .required('E-mail is required'),
+    phNo: Yup.number().required('Phone no is required'),
+    // email: Yup.string()
+    //   .email('Invalid e-mail adddress')
+    //   .required('E-mail is required'),
+    role: Yup.string().required('Role is required'),
     password: Yup.string()
       .min(8, 'Password too short')
       .required('Password is required'),
@@ -52,14 +52,17 @@ export const SignUp = ({ history, toggleLoading }) => {
     toggleLoading();
     const options = {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+      headers: { 
+        'Content-Type': 'application/json;charset=UTF-8',
+    },
       withCredentials: true,
       data: { ...values },
       url: apis.signup,
     };
 
     try {
-      await axios(options);
+      const data = await axios(options);
+      console.log('signup-data:',data);
       toggleLoading();
     //   enqueueSnackbar('Welcome');
       history.push('/');
@@ -103,23 +106,23 @@ export const SignUp = ({ history, toggleLoading }) => {
                     <Typography color="error">{message}</Typography>
                     <Field
                       component={TextField}
-                      name="firstName"
-                      type="text"
-                      label="First Name"
+                      name="phNo"
+                      type="number"
+                      label="Phone"
                       margin="normal"
                       variant="outlined"
                       fullWidth
                     />
                     <Field
                       component={TextField}
-                      name="lastName"
+                      name="role"
                       type="text"
-                      label="Last Name"
+                      label="Role"
                       margin="normal"
                       variant="outlined"
                       fullWidth
                     />
-                    <Field
+                    {/* <Field
                       component={TextField}
                       name="email"
                       type="email"
@@ -127,7 +130,7 @@ export const SignUp = ({ history, toggleLoading }) => {
                       margin="normal"
                       variant="outlined"
                       fullWidth
-                    />
+                    /> */}
                     <Field
                       component={TextField}
                       name="password"

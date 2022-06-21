@@ -7,7 +7,7 @@ const { Provider } = Context;
 
 export const AppProvider = ({ children }) => {
   const appName = 'I-pangram React App';
-  const serverAddress = 'https://127.0.0.1:8090';
+  const serverAddress = 'http://127.0.0.1:8080';
   const apis = {
     signin: serverAddress + '/signin',
     signup: serverAddress + '/signup',

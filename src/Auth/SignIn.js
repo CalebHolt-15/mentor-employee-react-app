@@ -28,14 +28,13 @@ export const SignIn = ({ history, toggleLoading }) => {
 //   const { enqueueSnackbar } = useSnackbar();
 
   const initialValues = {
-    email: '',
+    phNo: '',
     password: '',
   };
 
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .email('Invalid email')
-      .required('email is required'),
+    phNo: Yup.number()
+      .required('Number is required'),
     password: Yup.string().required('password is required'),
   });
 
@@ -64,19 +63,19 @@ export const SignIn = ({ history, toggleLoading }) => {
     toggleLoading();
   };
 
-  useEffect(() => {
-    const getCsrf = async () => {
-      const options = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-        withCredentials: true,
-        data: {},
-        url: 'https://127.0.0.1:8089/',
-      };
-      await axios(options);
-    };
-    getCsrf();
-  }, []);
+//   useEffect(() => {
+//     const getCsrf = async () => {
+//       const options = {
+//         method: 'GET',
+//         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+//         withCredentials: true,
+//         data: {},
+//         url: 'https://127.0.0.1:8080/',
+//       };
+//       await axios(options);
+//     };
+//     getCsrf();
+//   }, []);
 
   return (
     <Grid
@@ -110,9 +109,9 @@ export const SignIn = ({ history, toggleLoading }) => {
                       <Typography color="error">{message}</Typography>
                       <Field
                         component={TextField}
-                        name="email"
-                        type="email"
-                        label="E-mail"
+                        name="phNo"
+                        type="number"
+                        label="Phone"
                         margin="normal"
                         variant="outlined"
                         fullWidth
