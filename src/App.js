@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { useAppState } from './Provider/AppProvider';
+import { Box, LinearProgress } from '@material-ui/core';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { NavBarWithRouter } from './Components/NavBar/NavBar';
+import { useStyles } from './Components/NavBar/useStyles';
+// import { Footer } from './Components/Footer/Footer';
+import { routes } from './Routes/routes';
 
-function App() {
+export const App = () => {
+  const classes = useStyles();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleToggleLoading = () => {
+    setIsLoading((isLoading) => !isLoading);
+  };
+
+  const extra = {
+    toggleLoading: handleToggleLoading,
+    isLoading: isLoading,
+  };
+
+  console.log("App");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={classes.root}>
+      <NavBarWithRouter />
+      <>hkjdbkjfbsldjf</>
+      <main className={classes.grow}>
+        <div className={classes.toolbar} />
+        {isLoading && <LinearProgress />}
+        <Box mx={4} mt={4} mb={6}>
+          <Switch>
+            {routes.map(
+              (
+                { component: Component, path, exact, ...route },
+                index
+              ) => (
+                <Route
+                  key={index}
+                  path={path}
+                  exact={exact}
+                  render={(props) => (
+                    <Component {...route} {...extra} {...props} />
+                  )}
+                />
+              )
+            )}
+            <Redirect to="/404" />
+          </Switch>
+        </Box>
+      </main>
+      {/* <Footer /> */}
     </div>
   );
-}
-
-export default App;
+};
