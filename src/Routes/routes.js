@@ -6,5 +6,11 @@ export const routes = [
         component: Home,
         exact:true
     },
+    {
+        path:'/super',
+        component: Home,
+        exact:true
+    },
+
    
 ]

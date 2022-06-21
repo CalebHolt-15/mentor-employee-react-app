@@ -76,7 +76,7 @@ export const NavBar = ({ history }) => {
           </Typography>
           <div className={classes.grow} />
           <Typography variant="h7" color="inherit" noWrap>
-            {fetched && `${user.firstName} ${user.lastName}`}
+            {fetched && `${user.phNo} ${user.role}`}
           </Typography>
           <Tooltip arrow title="Logout">
             <IconButton
